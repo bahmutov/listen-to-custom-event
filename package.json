@@ -1,6 +1,7 @@
 {
   "name": "listen-to-custom-event",
   "version": "0.1.0",
+  "description": "Cypress example confirming custom event was sent to the document.",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
