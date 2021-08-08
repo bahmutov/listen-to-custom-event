@@ -2,7 +2,43 @@
 
 it('sends an event to the document', () => {
   cy.visit('/')
+  cy.document().then((doc) => {
+    doc.addEventListener('loading', cy.stub().as('loading'))
+  })
+  // on load the app should have sent an event
+  cy.get('@loading').should('have.been.calledOnce')
+})
+
+it('sends an event to the document', () => {
+  cy.visit('/')
   cy.document().invoke('addEventListener', 'loading', cy.stub().as('loading'))
+  // on load the app should have sent an event
+  cy.get('@loading')
+    .should('have.been.calledOnce')
+    .its('firstCall.args.0.detail')
+    .should('deep.equal', {
+      message: 'Loading...',
+    })
+})
+
+it('sends an event to the document', () => {
+  cy.visit('/')
+  cy.document().invoke('addEventListener', 'loading', cy.stub().as('loading'))
+  // on load the app should have sent an event
+  cy.get('@loading')
+    .should('have.been.calledOnce')
+    .its('firstCall.args.0.detail')
+    .should('deep.equal', {
+      message: 'Loading...',
+    })
+})
+
+it('sends an event to the document', () => {
+  cy.visit('/', {
+    onBeforeLoad(win) {
+      win.document.addEventListener('loading', cy.stub().as('loading'))
+    },
+  })
   // on load the app should have sent an event
   cy.get('@loading')
     .should('have.been.calledOnce')
